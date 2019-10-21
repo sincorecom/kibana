@@ -83,7 +83,7 @@ export const AlertsUIHome: React.FunctionComponent<RouteComponentProps<MatchPara
 
         <Switch>
           {canShowActions && <Route exact path={routeToActions} component={ActionsList} />}
-          {canShowAlerts && <Route exact path={routeToAlerts} components={AlertsList} />}
+          {canShowAlerts && <Route exact path={routeToAlerts} component={AlertsList} />}
         </Switch>
       </EuiPageContent>
     </EuiPageBody>
