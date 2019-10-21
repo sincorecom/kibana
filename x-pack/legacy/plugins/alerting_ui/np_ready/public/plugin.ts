@@ -41,7 +41,8 @@ export class Plugin implements CorePlugin<Setup, Start> {
     } = plugins;
 
     const canShowActions = capabilities.get().actions.show;
-    if (canShowActions) {
+    const canShowAlerts = capabilities.get().alerting.show;
+    if (canShowActions || canShowAlerts) {
       const kbnSection = getSection('kibana');
       kbnSection.register('alerting', {
         display: i18n.translate('xpack.alertingUI.managementSection.displayName', {
@@ -56,9 +57,10 @@ export class Plugin implements CorePlugin<Setup, Start> {
   public start(core: CoreStart, plugins: any) {
     const { capabilities } = plugins;
     const canShowActions = capabilities.get().actions.show;
+    const canShowAlerts = capabilities.get().alerting.show;
 
     // Don't register routes when user doesn't have access to the application
-    if (!canShowActions) {
+    if (!canShowActions && !canShowAlerts) {
       return;
     }
 
