@@ -35,6 +35,7 @@ export interface AlertAction {
 }
 
 export interface Alert {
+  id: string;
   enabled: boolean;
   alertTypeId: string;
   interval: string;
@@ -127,4 +128,13 @@ export async function loadAlerts({
       search: searchText,
     },
   });
+}
+
+export interface DeleteAlertsOpts {
+  ids: string[];
+  http: HttpServiceBase;
+}
+
+export async function deleteAlerts({ ids, http }: DeleteAlertsOpts): Promise<void> {
+  await Promise.all(ids.map(id => http.delete(`${BASE_ACTION_API_PATH}/${id}`)));
 }
